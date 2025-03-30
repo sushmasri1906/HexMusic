@@ -20,7 +20,7 @@ export default function Sidebar() {
 			{/* Sidebar */}
 			<aside
 				className={`h-screen bg-gradient-to-b from-[#2E0854] to-[#4B0082] p-5 fixed left-0 top-0 flex flex-col justify-between transition-all duration-300 ${
-					isMobile ? "w-16" : "w-60"
+					isMobile ? "w-16" : "w-60 h-screen"
 				}`}>
 				<div className="space-y-6">
 					{/* Logo - Always visible on large screens */}
