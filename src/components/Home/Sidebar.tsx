@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { FaHome, FaBook, FaSearch, FaBell, FaUserCircle } from "react-icons/fa";
+import { FaList, FaHeart, FaHeadphones, FaCog } from "react-icons/fa";
 
 export default function Sidebar() {
 	const [isMobile, setIsMobile] = useState(false);
@@ -16,66 +16,48 @@ export default function Sidebar() {
 	}, []);
 
 	return (
-		<div className="flex min-h-screen bg-[#0f0f0f] ">
+		<div className="flex min-h-screen bg-[#0f0f0f]">
 			{/* Sidebar */}
 			<aside
 				className={`h-screen bg-gradient-to-b from-[#2E0854] to-[#4B0082] p-5 fixed left-0 top-0 flex flex-col justify-between transition-all duration-300 ${
 					isMobile ? "w-16" : "w-60 h-screen"
 				}`}>
 				<div className="space-y-6">
-					{/* Logo - Always visible on large screens */}
+					{/* Sidebar Logo */}
 					{!isMobile && (
-						<h1 className="text-xl font-bold text-[#A259FF]">HexMusic</h1>
+						<h1 className="text-xl font-bold text-[#A259FF]">HexSidebar</h1>
 					)}
 
-					{/* Navigation Links */}
+					{/* Sidebar Navigation Links */}
 					<nav className="space-y-4 mt-16">
 						{[
-							{ href: "/", icon: <FaHome />, label: "Home" },
-							{ href: "/library", icon: <FaBook />, label: "Library" },
-							{ href: "/search", icon: <FaSearch />, label: "Search" },
+							{ href: "/playlist", icon: <FaList />, label: "Playlists" },
+							{ href: "/favorites", icon: <FaHeart />, label: "Favorites" },
+							{ href: "/genres", icon: <FaHeadphones />, label: "Genres" },
 						].map(({ href, icon, label }) => (
 							<Link
 								key={href}
 								href={href}
 								className="flex items-center gap-4 text-white hover:text-[#A259FF] transition">
 								<span className="text-2xl min-w-[2rem]">{icon}</span>
-								{/* Show text only on larger screens */}
 								{!isMobile && <span>{label}</span>}
 							</Link>
 						))}
 					</nav>
 				</div>
 
-				{/* Bottom Section (Notifications & Profile) */}
+				{/* Sidebar Bottom Section */}
 				<div className="space-y-4">
-					{[
-						{
-							href: "/notifications",
-							icon: <FaBell />,
-							label: "Notifications",
-						},
-						{ href: "/profile", icon: <FaUserCircle />, label: "Profile" },
-					].map(({ href, icon, label }) => (
-						<Link
-							key={href}
-							href={href}
-							className="flex items-center gap-4 text-white hover:text-[#A259FF] transition">
-							<span className="text-2xl min-w-[2rem]">{icon}</span>
-							{/* Show text only on larger screens */}
-							{!isMobile && <span>{label}</span>}
-						</Link>
-					))}
+					<Link
+						href="/settings"
+						className="flex items-center gap-4 text-white hover:text-[#A259FF] transition">
+						<span className="text-2xl min-w-[2rem]">
+							<FaCog />
+						</span>
+						{!isMobile && <span>Settings</span>}
+					</Link>
 				</div>
 			</aside>
-
-			{/* Main Content Area */}
-			{/* <main
-				className={`p-6 transition-all duration-300 w-full ${
-					isMobile ? "ml-16" : "ml-60"
-				}`}>
-				<h2 className="text-white text-2xl">Main Content Here</h2>
-			</main> */}
 		</div>
 	);
 }

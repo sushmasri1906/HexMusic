@@ -78,7 +78,7 @@ const Album = ({ albumId }: { albumId: string }) => {
 	};
 
 	return (
-		<div className="p-3 sm:p-4 md:p-6 lg:p-8 bg-[#121212] min-h-screen text-white mt-12">
+		<div className="p-3 sm:p-4 md:p-6 lg:p-8 bg-[#121212] min-h-screen text-white mt-4">
 			<h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 md:mb-6">
 				Album Tracks
 			</h2>

@@ -3,15 +3,15 @@
 import Link from "next/link";
 import { useState } from "react";
 import {
-	FaSearch,
-	FaHome,
-	FaBell,
-	FaUserCircle,
-	FaCrown,
-	FaDownload,
-	FaBars,
-	FaTimes,
-} from "react-icons/fa";
+	FiSearch,
+	FiHome,
+	FiBell,
+	FiUser,
+	FiStar,
+	FiDownload,
+	FiMenu,
+	FiX,
+} from "react-icons/fi";
 
 export default function Navbar() {
 	const [menuOpen, setMenuOpen] = useState(false);
@@ -20,15 +20,17 @@ export default function Navbar() {
 		<nav className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 py-3 bg-gradient-to-r from-[#2E0854] to-[#4B0082] shadow-md">
 			{/* Left Section: Logo & Home */}
 			<div className="flex items-center space-x-5">
-				<div className="text-2xl font-extrabold text-[#A259FF] tracking-wide">HexMusic</div>
+				<div className="text-2xl font-extrabold text-[#A259FF] tracking-wide">
+					HexMusic
+				</div>
 				<Link href="/" className="text-white hover:text-[#A259FF] transition">
-					<FaHome className="text-2xl" />
+					<FiHome className="text-2xl" />
 				</Link>
 			</div>
 
 			{/* Center: Search Bar (Hidden on Small Screens) */}
 			<div className="hidden lg:flex bg-black/40 text-white px-5 py-2 rounded-full items-center w-72">
-				<FaSearch className="text-gray-300" />
+				<FiSearch className="text-gray-300" />
 				<input
 					type="text"
 					placeholder="Search for songs, artists..."
@@ -38,18 +40,24 @@ export default function Navbar() {
 
 			{/* Right Section: Icons & Mobile Menu Button */}
 			<div className="flex items-center space-x-6 text-white">
-				<Link href="/premium" className="hidden md:flex hover:text-[#A259FF] items-center gap-2 text-sm font-medium">
-					<FaCrown className="text-lg" /> <span>Premium</span>
+				<Link
+					href="/premium"
+					className="hidden md:flex hover:text-[#A259FF] items-center gap-2 text-sm font-medium">
+					<FiStar className="text-lg" /> <span>Premium</span>
 				</Link>
-				<Link href="/install" className="hidden md:flex hover:text-[#A259FF] items-center gap-2 text-sm font-medium">
-					<FaDownload className="text-lg" /> <span>Install</span>
+				<Link
+					href="/install"
+					className="hidden md:flex hover:text-[#A259FF] items-center gap-2 text-sm font-medium">
+					<FiDownload className="text-lg" /> <span>Install</span>
 				</Link>
-				<FaBell className="text-2xl cursor-pointer hover:text-[#A259FF] transition" />
-				<FaUserCircle className="text-2xl cursor-pointer hover:text-[#A259FF] transition" />
+				<FiBell className="text-2xl cursor-pointer hover:text-[#A259FF] transition" />
+				<FiUser className="text-2xl cursor-pointer hover:text-[#A259FF] transition" />
 
 				{/* Mobile Menu Toggle */}
-				<button className="md:hidden text-2xl" onClick={() => setMenuOpen(!menuOpen)}>
-					{menuOpen ? <FaTimes /> : <FaBars />}
+				<button
+					className="md:hidden text-2xl"
+					onClick={() => setMenuOpen(!menuOpen)}>
+					{menuOpen ? <FiX /> : <FiMenu />}
 				</button>
 			</div>
 
@@ -58,19 +66,29 @@ export default function Navbar() {
 				className={`fixed inset-0 bg-[#2E0854] bg-opacity-95 flex flex-col items-center justify-center space-y-6 text-white text-lg transition-transform duration-300 ${
 					menuOpen ? "translate-y-0" : "-translate-y-full"
 				}`}
-				style={{ zIndex: 1000 }}
-			>
-				<Link href="/" className="hover:text-[#A259FF] text-xl" onClick={() => setMenuOpen(false)}>
+				style={{ zIndex: 1000 }}>
+				<Link
+					href="/"
+					className="hover:text-[#A259FF] text-xl"
+					onClick={() => setMenuOpen(false)}>
 					Home
 				</Link>
-				<Link href="/premium" className="hover:text-[#A259FF] text-xl" onClick={() => setMenuOpen(false)}>
+				<Link
+					href="/premium"
+					className="hover:text-[#A259FF] text-xl"
+					onClick={() => setMenuOpen(false)}>
 					Premium
 				</Link>
-				<Link href="/install" className="hover:text-[#A259FF] text-xl" onClick={() => setMenuOpen(false)}>
+				<Link
+					href="/install"
+					className="hover:text-[#A259FF] text-xl"
+					onClick={() => setMenuOpen(false)}>
 					Install App
 				</Link>
-				<button onClick={() => setMenuOpen(false)} className="text-3xl mt-6 hover:text-red-400 transition">
-					<FaTimes />
+				<button
+					onClick={() => setMenuOpen(false)}
+					className="text-3xl mt-6 hover:text-red-400 transition">
+					<FiX />
 				</button>
 			</div>
 		</nav>
