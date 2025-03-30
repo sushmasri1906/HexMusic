@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Home/Sidebar";
+import Footer from "@/components/Footer";
+import MusicPlayer from "@/components/MusicPlayer";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -34,11 +36,15 @@ export default function RootLayout({
 
 					{/* Main Content Wrapper */}
 					<div className="flex-1 flex flex-col transition-all bg-[#0f0f0f] duration-300 ml-16 lg:ml-60">
-						
 						<Navbar />
 
 						{/* Main Page Content */}
 						<main className="p-6 mt-16">{children}</main>
+						<div className="fixed bottom-0 left-0 w-full bg-[#0f0f0f] border-t border-gray-800 z-50">
+							<MusicPlayer />
+						</div>
+
+						<Footer />
 					</div>
 				</div>
 			</body>
