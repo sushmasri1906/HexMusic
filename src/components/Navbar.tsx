@@ -20,9 +20,11 @@ export default function Navbar() {
 		<nav className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 py-3 bg-gradient-to-r from-[#2E0854] to-[#4B0082] shadow-md">
 			{/* Left Section: Logo & Home */}
 			<div className="flex items-center space-x-5">
-				<div className="text-2xl font-extrabold text-[#A259FF] tracking-wide">
+				<Link
+					href="/"
+					className="flex items-center text-2xl font-extrabold text-[#A259FF] tracking-wide hover:text-[#A259FF] transition">
 					HexMusic
-				</div>
+				</Link>
 				<Link href="/" className="text-white hover:text-[#A259FF] transition">
 					<FiHome className="text-2xl" />
 				</Link>
