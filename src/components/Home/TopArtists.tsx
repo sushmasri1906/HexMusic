@@ -7,7 +7,7 @@ const SearchArtist = () => {
 	const [artistId, setArtistId] = useState<string | null>(null);
 	const [artistName, setArtistName] = useState<string>("");
 	const { token } = useTokenStore();
-
+	console.log(artistId);
 	const handleSearch = async () => {
 		if (!token || !artistName) return;
 
@@ -46,3 +46,5 @@ const SearchArtist = () => {
 		</div>
 	);
 };
+
+export default SearchArtist;
