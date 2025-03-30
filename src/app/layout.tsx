@@ -30,11 +30,11 @@ export default function RootLayout({
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
 				<div className="flex min-h-screen bg-[#0f0f0f]">
 					{/* Sidebar - Ensure Fixed Width */}
-					<Sidebar  />
+					<Sidebar />
 
 					{/* Main Content Wrapper */}
-					<div className="flex-1 flex flex-col md:ml-16 ml-4">
-						{/* Navbar (Fixed at the Top) */}
+					<div className="flex-1 flex flex-col transition-all bg-[#0f0f0f] duration-300 ml-16 lg:ml-60">
+						
 						<Navbar />
 
 						{/* Main Page Content */}

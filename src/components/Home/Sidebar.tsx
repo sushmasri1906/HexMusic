@@ -1,87 +1,81 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import {
-	FaHome,
-	FaBook,
-	FaSearch,
-	FaBell,
-	FaUserCircle,
-	FaBars,
-	FaTimes,
-} from "react-icons/fa";
+import { FaHome, FaBook, FaSearch, FaBell, FaUserCircle } from "react-icons/fa";
 
 export default function Sidebar() {
-	const [isOpen, setIsOpen] = useState(true);
+	const [isMobile, setIsMobile] = useState(false);
+
+	// Detect screen size changes
+	useEffect(() => {
+		const handleResize = () => setIsMobile(window.innerWidth < 1024);
+		handleResize();
+		window.addEventListener("resize", handleResize);
+		return () => window.removeEventListener("resize", handleResize);
+	}, []);
 
 	return (
-		<div className="flex">
+		<div className="flex min-h-screen bg-[#0f0f0f] ">
 			{/* Sidebar */}
 			<aside
-				className={`${
-					isOpen ? "w-60" : "w-16"
-				} h-screen bg-gradient-to-b from-[#2E0854] to-[#4B0082] p-5 transition-all duration-300 fixed left-0 top-0 flex flex-col justify-between`}>
-				<div>
-					{/* Logo & Toggle Button */}
-					<div className="flex items-center justify-between mb-8">
-						<h1
-							className={`text-xl font-bold text-[#A259FF] ${
-								!isOpen && "hidden"
-							}`}>
-							HexMusic
-						</h1>
-						<button
-							className="text-white text-2xl"
-							onClick={() => setIsOpen(!isOpen)}>
-							{isOpen ? <FaTimes /> : <FaBars />}
-						</button>
-					</div>
+				className={`h-screen bg-gradient-to-b from-[#2E0854] to-[#4B0082] p-5 fixed left-0 top-0 flex flex-col justify-between transition-all duration-300 ${
+					isMobile ? "w-16" : "w-60"
+				}`}>
+				<div className="space-y-6">
+					{/* Logo - Always visible on large screens */}
+					{!isMobile && (
+						<h1 className="text-xl font-bold text-[#A259FF]">HexMusic</h1>
+					)}
 
 					{/* Navigation Links */}
-					<nav className="space-y-6">
-						<Link
-							href="/"
-							className="flex items-center gap-4 text-white hover:text-[#A259FF] transition">
-							<FaHome className="text-2xl" />
-							{isOpen && "Home"}
-						</Link>
-						<Link
-							href="/library"
-							className="flex items-center gap-4 text-white hover:text-[#A259FF] transition">
-							<FaBook className="text-2xl" />
-							{isOpen && "Library"}
-						</Link>
-						<Link
-							href="/search"
-							className="flex items-center gap-4 text-white hover:text-[#A259FF] transition">
-							<FaSearch className="text-2xl" />
-							{isOpen && "Search"}
-						</Link>
+					<nav className="space-y-4 mt-16">
+						{[
+							{ href: "/", icon: <FaHome />, label: "Home" },
+							{ href: "/library", icon: <FaBook />, label: "Library" },
+							{ href: "/search", icon: <FaSearch />, label: "Search" },
+						].map(({ href, icon, label }) => (
+							<Link
+								key={href}
+								href={href}
+								className="flex items-center gap-4 text-white hover:text-[#A259FF] transition">
+								<span className="text-2xl min-w-[2rem]">{icon}</span>
+								{/* Show text only on larger screens */}
+								{!isMobile && <span>{label}</span>}
+							</Link>
+						))}
 					</nav>
 				</div>
 
 				{/* Bottom Section (Notifications & Profile) */}
 				<div className="space-y-4">
-					<Link
-						href="/notifications"
-						className="flex items-center gap-4 text-white hover:text-[#A259FF] transition">
-						<FaBell className="text-2xl" />
-						{isOpen && "Notifications"}
-					</Link>
-					<Link
-						href="/profile"
-						className="flex items-center gap-4 text-white hover:text-[#A259FF] transition">
-						<FaUserCircle className="text-2xl" />
-						{isOpen && "Profile"}
-					</Link>
+					{[
+						{
+							href: "/notifications",
+							icon: <FaBell />,
+							label: "Notifications",
+						},
+						{ href: "/profile", icon: <FaUserCircle />, label: "Profile" },
+					].map(({ href, icon, label }) => (
+						<Link
+							key={href}
+							href={href}
+							className="flex items-center gap-4 text-white hover:text-[#A259FF] transition">
+							<span className="text-2xl min-w-[2rem]">{icon}</span>
+							{/* Show text only on larger screens */}
+							{!isMobile && <span>{label}</span>}
+						</Link>
+					))}
 				</div>
 			</aside>
 
 			{/* Main Content Area */}
-			<div className={`ml-${isOpen ? "60" : "16"} p-6 w-full`}>
+			{/* <main
+				className={`p-6 transition-all duration-300 w-full ${
+					isMobile ? "ml-16" : "ml-60"
+				}`}>
 				<h2 className="text-white text-2xl">Main Content Here</h2>
-			</div>
+			</main> */}
 		</div>
 	);
 }

@@ -65,7 +65,7 @@ const Album = ({ albumId }: { albumId: string }) => {
 				setTrackProgress((prev) => {
 					const currentProgress = prev[playingTrack] || 0;
 					const duration = trackDurations[playingTrack] || 0;
-					if (currentProgress >= duration) return prev; // Stop updating when track ends
+					if (currentProgress >= duration) return prev;
 					return { ...prev, [playingTrack]: currentProgress + 1 };
 				});
 			}, 1000);
@@ -81,8 +81,10 @@ const Album = ({ albumId }: { albumId: string }) => {
 	};
 
 	return (
-		<div className="p-6 bg-[#121212] min-h-screen text-white mt-12">
-			<h2 className="text-3xl font-bold mb-6">Album Tracks</h2>
+		<div className="p-4 md:p-6 lg:p-8 bg-[#121212] min-h-screen text-white mt-12">
+			<h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">
+				Album Tracks
+			</h2>
 
 			{/* Track List */}
 			<div className="space-y-3">
@@ -90,12 +92,11 @@ const Album = ({ albumId }: { albumId: string }) => {
 					tracks.map((track, index) => (
 						<div
 							key={track.id}
-							className={`relative p-4 rounded-lg transition duration-300 cursor-pointer group flex items-center ${
+							className={`relative p-3 md:p-4 rounded-lg transition duration-300 cursor-pointer group flex items-center ${
 								playingTrack === track.uri
 									? "bg-[#8A2BE2] shadow-lg scale-[1.02] ring-2 ring-[#b076f4]"
 									: "bg-[#181818] hover:bg-[#282828]"
-							}`}
-							onClick={() => togglePlayPause(track)}>
+							}`}>
 							{/* Progress Bar */}
 							{playingTrack === track.uri && (
 								<div
@@ -109,35 +110,37 @@ const Album = ({ albumId }: { albumId: string }) => {
 							)}
 
 							{/* Track Number or Playing Indicator */}
-							<p className="w-6 text-gray-400 group-hover:text-white text-lg font-semibold">
+							<p className="w-6 md:w-8 text-gray-400 group-hover:text-white text-lg md:text-xl font-semibold">
 								{playingTrack === track.uri ? "🔊" : index + 1}
 							</p>
 
 							{/* Play/Pause Button */}
-							<button className="opacity-100 transition duration-300 mx-3">
+							<button
+								className="opacity-100 transition duration-300 mx-2 md:mx-3"
+								onClick={() => togglePlayPause(track)}>
 								{playingTrack === track.uri ? (
-									<FaPause className="text-white text-2xl" />
+									<FaPause className="text-white text-xl md:text-2xl" />
 								) : (
-									<FaPlay className="text-gray-400 text-2xl hover:text-white transition" />
+									<FaPlay className="text-gray-400 text-xl md:text-2xl hover:text-white transition" />
 								)}
 							</button>
 
 							{/* Track Info */}
 							<div className="flex-1">
 								<p
-									className={`text-lg font-medium truncate ${
+									className={`text-base md:text-lg font-medium truncate ${
 										playingTrack === track.uri ? "text-white" : "text-gray-300"
 									}`}>
 									{track.name}
 								</p>
-								<p className="text-sm text-gray-400">
+								<p className="text-xs md:text-sm text-gray-400">
 									{track.artists.map((a) => a.name).join(", ")}
 								</p>
 							</div>
 
 							{/* Track Progress Timer */}
 							<p
-								className={`text-sm ${
+								className={`text-xs md:text-sm ${
 									playingTrack === track.uri ? "text-white" : "text-gray-400"
 								}`}>
 								{formatTime(trackProgress[track.uri] || 0)} /{" "}
