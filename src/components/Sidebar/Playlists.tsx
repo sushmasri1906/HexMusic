@@ -48,28 +48,28 @@ export default function Playlists() {
 	];
 
 	return (
-		<div className="px-6 py-4">
-			<h2 className="text-3xl font-bold text-white mb-6 text-center">
+		<div className="px-6 py-6">
+			<h2 className="text-4xl font-bold text-white mb-8 text-center">
 				Playlists
 			</h2>
-			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+			<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-6">
 				{playlists.map((playlist) => (
 					<div
 						key={playlist.id}
-						className={`relative group rounded-xl overflow-hidden shadow-lg cursor-pointer transform transition-all duration-300 hover:scale-105 ${getEmotionClass(
-							playlist.emotion
-						)}`}>
-						<div className="relative w-full h-64">
+						className="relative group rounded-xl overflow-hidden shadow-lg cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+						<div className="relative w-full aspect-square">
 							<Image
 								src={playlist.imageUrl as StaticImageData}
 								alt={playlist.title}
-								className="object-cover object-center w-full h-full transition-all duration-300 group-hover:opacity-80"
-								layout="fill" // Ensures the image fills the container properly
+								fill
+								sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+								className="object-cover object-center w-full h-full transition-all duration-300 group-hover:opacity-90"
 							/>
-							<div className="absolute top-0 left-0 right-0 bottom-0 bg-gradient-to-t from-black to-transparent opacity-50 group-hover:opacity-0 transition-opacity duration-300"></div>
+							<div className="absolute top-0 left-0 right-0 bottom-0 bg-gradient-to-t from-black via-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300"></div>
 						</div>
-						<div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300">
-							<h3 className="text-xl font-semibold text-white text-center">
+
+						<div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-300">
+							<h3 className="text-lg font-semibold text-white text-center">
 								{playlist.title}
 							</h3>
 						</div>
