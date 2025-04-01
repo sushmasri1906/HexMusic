@@ -24,12 +24,13 @@ export default function Genres() {
 					<div
 						key={genre.id}
 						className="relative group rounded-xl overflow-hidden shadow-lg cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-2xl bg-black w-[150px] sm:w-[180px] md:w-[200px] h-[150px] sm:h-[180px] md:h-[200px]">
-						{/* Image Container with Responsive Size */}
+						{/* Image Container with sizes for performance */}
 						<div className="relative w-full h-full">
 							<Image
 								src={genre.imageUrl as StaticImageData}
 								alt={genre.title}
 								fill
+								sizes="(max-width: 640px) 150px, (max-width: 1024px) 180px, 200px"
 								className="object-cover w-full h-full transition-all duration-300 group-hover:opacity-90 bg-black"
 							/>
 						</div>

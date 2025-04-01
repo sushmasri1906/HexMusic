@@ -21,22 +21,19 @@ export default function Favorites() {
 			<h2 className="text-4xl font-bold text-white mb-8 text-center">
 				Favorites
 			</h2>
-			<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-4 gap-6 justify-center">
+			<div className="flex flex-wrap justify-center gap-6">
 				{favorites.map((fav) => (
 					<div
 						key={fav.id}
-						className="relative group rounded-xl overflow-hidden shadow-lg cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-2xl bg-black w-48 h-48 mx-auto">
+						className="relative group rounded-xl overflow-hidden shadow-lg cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-2xl bg-black w-[150px] sm:w-[180px] md:w-[200px] h-[150px] sm:h-[180px] md:h-[200px]">
 						{/* Image Container */}
 						<div className="relative w-full h-full">
 							<Image
 								src={fav.imageUrl as StaticImageData}
 								alt={fav.title}
 								fill
-								sizes="192px"
-								className="object-contain w-full h-full transition-all duration-300 group-hover:opacity-90 bg-black"
+								className="object-cover w-full h-full transition-all duration-300 group-hover:opacity-90 bg-black"
 							/>
-							{/* Gradient Overlay */}
-							<div className="absolute inset-0 bg-gradient-to-t from-black via-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300"></div>
 						</div>
 
 						{/* Title Overlay */}
