@@ -1,7 +1,12 @@
+import Genres from "@/components/Sidebar/Genres";
 import React from "react";
 
 function page() {
-	return <div>page</div>;
+	return (
+		<>
+			<Genres />
+		</>
+	);
 }
 
 export default page;
