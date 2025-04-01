@@ -12,7 +12,7 @@ import {
 
 export default function Footer() {
 	return (
-		<footer className="w-full bg-[#181818] text-white py-10 px-6 border-t mt-28 border-gray-700  sm:mb-10">
+		<footer className="w-full bg-[#181818] text-white pt-6 pb-20 px-6 border-t mt-20  border-gray-700 sm:mb-10">
 			<div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
 				{/* Brand & Description */}
 				<div>
@@ -54,7 +54,7 @@ export default function Footer() {
 				{/* Social Media Links */}
 				<div>
 					<h2 className="text-lg font-semibold">Follow Us</h2>
-					<div className="flex space-x-4 mt-3">
+					<div className="flex space-x-4 mt-6">
 						<Link
 							href="#"
 							className="text-gray-400 hover:text-[#A259FF] text-xl">
