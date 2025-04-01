@@ -17,9 +17,11 @@ import {
 export default function Navbar() {
 	const [menuOpen, setMenuOpen] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
+	const [notifOpen, setNotifOpen] = useState(false);
 	const dropdownRef = useRef<HTMLDivElement>(null);
+	const notifRef = useRef<HTMLDivElement>(null);
 
-	// Close dropdown when clicked outside
+	// Close dropdowns when clicking outside
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
 			if (
@@ -27,6 +29,12 @@ export default function Navbar() {
 				!dropdownRef.current.contains(event.target as HTMLElement)
 			) {
 				setIsOpen(false);
+			}
+			if (
+				notifRef.current &&
+				!notifRef.current.contains(event.target as HTMLElement)
+			) {
+				setNotifOpen(false);
 			}
 		};
 
@@ -36,8 +44,19 @@ export default function Navbar() {
 		};
 	}, []);
 
+	const notifications = [
+		{ id: 1, message: "New song added to your playlist!", time: "2m ago" },
+		{
+			id: 2,
+			message: "Your favorite artist released a new album!",
+			time: "10m ago",
+		},
+		{ id: 3, message: "Upcoming live session in 1 hour!", time: "1h ago" },
+	];
+
 	return (
 		<nav className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 py-3 bg-gradient-to-r from-[#2E0854] to-[#4B0082] shadow-md">
+			{/* Logo and Links */}
 			<div className="flex items-center space-x-5 sm:space-x-1">
 				<Link
 					href="/"
@@ -46,19 +65,18 @@ export default function Navbar() {
 				</Link>
 			</div>
 
-			{/* Center: Search Bar (Visible on Small Screens Only) */}
-			<div className="bg-black/50 text-white px-4 py-2 rounded-full flex items-center w-full sm:w-72 ml-2">
+			{/* Search Bar */}
+			<div className="bg-black/50 text-white px-4 py-2 rounded-full flex items-center w-full sm:w-72 mx-2">
 				<FiSearch className="text-gray-300 text-xl" />
 				<input
 					type="text"
-					placeholder="Search for songs, artists..."
-					className="ml-3 w-full bg-transparent outline-none placeholder-gray-400 text-lg"
+					placeholder="Search for songs,artists..."
+					className="ml-2 w-full bg-transparent outline-none placeholder-gray-400 text-sm"
 				/>
 			</div>
 
-			{/* Right Section: Icons & Mobile Menu Button */}
+			{/* Right Section: Icons & Menu */}
 			<div className="hidden lg:flex items-center space-x-6 text-white">
-				{/* Show premium and install links only on medium screens and larger */}
 				<Link
 					href="/premium"
 					className="hidden md:flex hover:text-[#A259FF] items-center gap-2 text-sm font-medium">
@@ -87,7 +105,7 @@ export default function Navbar() {
 							</Link>
 							<Link
 								href="/settings"
-								className=" px-4 py-2 hover:bg-[#4B0082] transition flex items-center gap-2">
+								className="px-4 py-2 hover:bg-[#4B0082] transition flex items-center gap-2">
 								<FiSettings /> Settings
 							</Link>
 							<button
@@ -99,16 +117,62 @@ export default function Navbar() {
 					)}
 				</div>
 
-				{/* Bell Icon */}
-				<FiBell className="text-2xl cursor-pointer hover:text-[#A259FF] transition" />
+				{/* Notifications Dropdown */}
+				<div className="relative " ref={notifRef}>
+					<button
+						onClick={() => setNotifOpen(!notifOpen)}
+						className="text-white hover:text-[#A259FF] transition">
+						<FiBell className="text-2xl" />
+					</button>
 
-				{/* Mobile Menu Toggle */}
-				<button
-					className="md:hidden text-2xl"
-					onClick={() => setMenuOpen(!menuOpen)}>
-					{menuOpen ? <FiX /> : <FiMenu />}
-				</button>
+					{notifOpen && (
+						<div className="absolute right-0 mt-2 w-64 bg-[#1a1a1a] shadow-lg rounded-lg border border-gray-700 p-3 z-50">
+							<h3 className="text-white font-bold text-sm mb-2">
+								Notifications
+							</h3>
+
+							{/* Notification List */}
+							<div className="space-y-2">
+								{notifications.length > 0 ? (
+									notifications.map((notif) => (
+										<div
+											key={notif.id}
+											className="flex justify-between items-center bg-[#2E0854] p-2 rounded-lg hover:bg-[#4B0082] transition">
+											<span className="text-white text-sm">
+												{notif.message}
+											</span>
+											<span className="text-xs text-gray-400">
+												{notif.time}
+											</span>
+										</div>
+									))
+								) : (
+									<p className="text-gray-400 text-sm text-center">
+										No new notifications
+									</p>
+								)}
+							</div>
+
+							{/* Footer Buttons */}
+							<div className="flex justify-between mt-3 text-xs text-gray-400">
+								<button className="hover:text-white transition">
+									Clear all
+								</button>
+								<button className="hover:text-white transition">
+									Mark all as read
+								</button>
+							</div>
+						</div>
+					)}
+				</div>
 			</div>
+
+			{/* Mobile Menu Toggle */}
+			<button
+				className="lg:hidden text-2xl text-white"
+				onClick={() => setMenuOpen(!menuOpen)}>
+				{menuOpen ? <FiX /> : <FiMenu />}
+			</button>
 
 			{/* Mobile Menu - Fullscreen Overlay */}
 			<div
@@ -128,6 +192,90 @@ export default function Navbar() {
 					onClick={() => setMenuOpen(false)}>
 					Install App
 				</Link>
+
+				{/* Profile and Notifications for Mobile */}
+				<div className="flex flex-col items-center space-y-4">
+					{/* Profile Dropdown */}
+					<div className="relative w-full">
+						<button
+							onClick={() => setIsOpen(!isOpen)}
+							className="text-white hover:text-[#A259FF] transition w-full text-left flex items-center justify-center py-2 px-4">
+							<FiUser className="text-2xl" />
+							<span className="ml-1">Profile</span>
+						</button>
+
+						{isOpen && (
+							<div className="absolute right-0 mt-2 w-full bg-white text-black shadow-lg rounded-md overflow-hidden">
+								<Link
+									href="/profile"
+									className="block px-4 py-2 hover:bg-[#4B0082] transition">
+									Profile
+								</Link>
+								<Link
+									href="/settings"
+									className="px-4 py-2 hover:bg-[#4B0082] transition flex items-center gap-2">
+									<FiSettings /> Settings
+								</Link>
+								<button
+									className="w-full text-left px-4 py-2 hover:bg-red-600 transition flex items-center gap-2"
+									onClick={() => alert("Logging out...")}>
+									<FiLogOut /> Logout
+								</button>
+							</div>
+						)}
+					</div>
+
+					{/* Notifications Dropdown */}
+					<div className="relative w-full">
+						<button
+							onClick={() => setNotifOpen(!notifOpen)}
+							className="text-white hover:text-[#A259FF] transition w-full text-left flex items-center justify-between py-2 px-4">
+							<FiBell className="text-2xl" />
+							<span className="ml-3">Notifications</span>
+						</button>
+
+						{notifOpen && (
+							<div className="absolute right-0 mt-2 w-full bg-[#1a1a1a] shadow-lg rounded-lg border border-gray-700 p-3 z-50">
+								<h3 className="text-white font-bold text-sm mb-2">
+									Notifications
+								</h3>
+
+								{/* Notification List */}
+								<div className="space-y-2">
+									{notifications.length > 0 ? (
+										notifications.map((notif) => (
+											<div
+												key={notif.id}
+												className="flex justify-between items-center bg-[#2E0854] p-2 rounded-lg hover:bg-[#4B0082] transition">
+												<span className="text-white text-sm">
+													{notif.message}
+												</span>
+												<span className="text-xs text-gray-400">
+													{notif.time}
+												</span>
+											</div>
+										))
+									) : (
+										<p className="text-gray-400 text-sm text-center">
+											No new notifications
+										</p>
+									)}
+								</div>
+
+								{/* Footer Buttons */}
+								<div className="flex justify-between mt-3 text-xs text-gray-400">
+									<button className="hover:text-white transition">
+										Clear all
+									</button>
+									<button className="hover:text-white transition">
+										Mark all as read
+									</button>
+								</div>
+							</div>
+						)}
+					</div>
+				</div>
+
 				<button
 					onClick={() => setMenuOpen(false)}
 					className="text-3xl mt-6 hover:text-red-400 transition">
