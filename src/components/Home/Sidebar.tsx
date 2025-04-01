@@ -2,34 +2,40 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { FaList, FaHeart, FaHeadphones, FaCog } from "react-icons/fa";
+import { FaList, FaHeart, FaHeadphones, FaCog, FaBars } from "react-icons/fa";
 
 export default function Sidebar() {
 	const [isMobile, setIsMobile] = useState(false);
+	const [isExpanded, setIsExpanded] = useState(true);
 
 	// Detect screen size changes
 	useEffect(() => {
-		const handleResize = () => setIsMobile(window.innerWidth < 1024);
+		const handleResize = () => {
+			const mobileView = window.innerWidth < 1024;
+			setIsMobile(mobileView);
+			if (mobileView) setIsExpanded(false);
+		};
 		handleResize();
 		window.addEventListener("resize", handleResize);
 		return () => window.removeEventListener("resize", handleResize);
 	}, []);
 
 	return (
-		<div className="flex min-h-screen bg-[#0f0f0f]">
+		<div className="flex min-h-screen bg-[#0f0f0f] pb-[90px]">
 			{/* Sidebar */}
 			<aside
-				className={`h-screen bg-gradient-to-b from-[#2E0854] to-[#4B0082] p-5 fixed left-0 top-0 flex flex-col justify-between transition-all duration-300 ${
-					isMobile ? "w-16" : "w-60 h-screen"
+				className={`h-[calc(100vh-90px)] bg-gradient-to-b from-[#2E0854] to-[#4B0082] p-5 fixed left-0 top-0 flex flex-col justify-between transition-all duration-300 ${
+					isExpanded ? "w-60" : "w-16"
 				}`}>
 				<div className="space-y-6">
-					{/* Sidebar Logo */}
-					{!isMobile && (
-						<h1 className="text-xl font-bold text-[#A259FF]">HexSidebar</h1>
-					)}
+					{/* Sidebar Toggle Button */}
+					<button
+						className="text-white text-2xl mb-4 focus:outline-none"
+						onClick={() => setIsExpanded(!isExpanded)}>
+						<FaBars />
+					</button>
 
-					{/* Sidebar Navigation Links */}
-					<nav className="space-y-4 mt-16">
+					<nav className="space-y-4 mt-10">
 						{[
 							{ href: "/playlist", icon: <FaList />, label: "Playlists" },
 							{ href: "/favorites", icon: <FaHeart />, label: "Favorites" },
@@ -40,7 +46,7 @@ export default function Sidebar() {
 								href={href}
 								className="flex items-center gap-4 text-white hover:text-[#A259FF] transition">
 								<span className="text-2xl min-w-[2rem]">{icon}</span>
-								{!isMobile && <span>{label}</span>}
+								{isExpanded && <span>{label}</span>}
 							</Link>
 						))}
 					</nav>
@@ -54,7 +60,7 @@ export default function Sidebar() {
 						<span className="text-2xl min-w-[2rem]">
 							<FaCog />
 						</span>
-						{!isMobile && <span>Settings</span>}
+						{isExpanded && <span>Settings</span>}
 					</Link>
 				</div>
 			</aside>
