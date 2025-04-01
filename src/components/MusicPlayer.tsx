@@ -20,7 +20,7 @@ export default function MusicPlayer() {
 	const [isLoved, setIsLoved] = useState(false);
 
 	return (
-		<div className="fixed bottom-0 left-0 w-full bg-[#181818] text-white py-2 px-4 border-t border-gray-700 flex flex-col sm:flex-row sm:items-center justify-between h-[90px] sm:h-[80px] md:h-[70px]">
+		<div className="fixed bottom-0 left-0 w-full bg-[#181818] text-white py-2 px-4 border-t border-gray-700 flex flex-col sm:flex-row sm:items-center justify-between h-[100px] sm:h-[80px] md:h-[70px]">
 			<div className="flex items-center space-x-3">
 				{/* Track Info */}
 				<div className="flex items-center space-x-3">
