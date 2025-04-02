@@ -17,7 +17,7 @@ export default function Sidebar() {
 	const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 	const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
-	const settingsRef = useRef(null); // Ref for settings dropdown
+	const settingsRef = useRef<HTMLDivElement>(null); // Ref for settings dropdown
 
 	// Detect screen size changes
 	useEffect(() => {
@@ -50,8 +50,12 @@ export default function Sidebar() {
 
 	// Close dropdown if clicked outside
 	useEffect(() => {
-		const handleClickOutside = (event) => {
-			if (settingsRef.current && !settingsRef.current.contains(event.target)) {
+		const handleClickOutside = (event: MouseEvent) => {
+			// Corrected the event type
+			if (
+				settingsRef.current &&
+				!settingsRef.current.contains(event.target as Node)
+			) {
 				setIsSettingsOpen(false);
 			}
 		};
