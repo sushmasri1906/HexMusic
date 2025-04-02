@@ -17,7 +17,7 @@ const genres = [
 
 export default function Genres() {
 	return (
-		<div className="px-6 py-6">
+		<div className="px-6  text-white text-center py-20 bg-gradient-to-r from-[#2E0854] to-[#4B0082]">
 			<h2 className="text-4xl font-bold text-white mb-8 text-center">Genres</h2>
 			<div className="flex flex-wrap justify-center gap-6">
 				{genres.map((genre) => (

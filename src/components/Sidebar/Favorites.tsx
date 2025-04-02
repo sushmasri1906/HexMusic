@@ -17,7 +17,7 @@ const favorites = [
 
 export default function Favorites() {
 	return (
-		<div className="px-6 py-6">
+		<div className="text-white text-center py-20 bg-gradient-to-r from-[#2E0854] to-[#4B0082] my-6">
 			<h2 className="text-4xl font-bold text-white mb-8 text-center">
 				Favorites
 			</h2>
