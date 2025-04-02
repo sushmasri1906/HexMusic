@@ -2,6 +2,9 @@
 import HomePage from "@/components/Home/HomePage";
 import { useEffect } from "react";
 import { useTokenStore } from "@/store/tokenStore";
+import Playlists from "@/components/Sidebar/Playlists";
+import Favorites from "@/components/Sidebar/Favorites";
+import Genres from "@/components/Sidebar/Genres";
 
 export default function Home() {
 	
@@ -32,6 +35,9 @@ export default function Home() {
 	return (
 		<>
 			<HomePage />
+			<Playlists/>
+			<Favorites/>
+			<Genres/>
 		
 		</>
 	);
